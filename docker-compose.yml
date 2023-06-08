@@ -1,0 +1,18 @@
+# invoke the dockerfile to build the image
+version: '3.8'
+
+services:
+  nginx:
+    build: 
+      context: ./
+      dockerfile: ./loadBalancer/Dockerfile
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      - my-network
+    restart: always
+
+networks:
+  my-network:
+    driver: bridge
