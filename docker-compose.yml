@@ -2,6 +2,16 @@
 version: '3.8'
 
 services:
+
+  mailserver:
+    build: ./mailserver
+    ports:
+      - "2000:80"
+    networks:
+      - my-network
+    restart: always
+
+
   nginx:
     build: 
       context: ./

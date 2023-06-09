@@ -1,4 +1,5 @@
 /database/psql_data/*
+mailserver/env.php
 
 # Created by https://www.toptal.com/developers/gitignore/api/node,java,python,c,c++,csharp,dotnetcore,laravel,composer,visualstudiocode,visualstudio,jetbrains+all
 # Edit at https://www.toptal.com/developers/gitignore?templates=node,java,python,c,c++,csharp,dotnetcore,laravel,composer,visualstudiocode,visualstudio,jetbrains+all
