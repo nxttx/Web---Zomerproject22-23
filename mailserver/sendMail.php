@@ -33,9 +33,7 @@ function sendMail($from, $fromEmail, $to, $message, $title){
 
         return $mail->send();
     } catch (Exception $e) {
-      echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
-      echo getenv('MAIL_host');
-      return false;
+      return $mail->ErrorInfo;
     }
 }
 

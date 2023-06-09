@@ -19,9 +19,10 @@ Het Zomerproject team
 
 
 // send mail
-if(sendMail("Authentication - Zomerproject", "auth.zomerproject@foxels.nl",$to, $message, $subject)){
-    echo "{status: 'success'}";
+$result = sendMail("Authentication - Zomerproject", "auth.zomerproject@foxels.nl",$to, $message, $subject);
+if($result === true){
+    echo "{\"status\": \"success\"}";
 }else{
-    echo "{status: 'failed'}";
+    echo "{\"status\": \"failed\", \"error\": \"" . $result . "\"}";
 }
 ?>
