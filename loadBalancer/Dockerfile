@@ -1,11 +1,10 @@
 FROM nginx:1.25.0
 
 # Copy nginx configuration file
-COPY ./loadBalancer/nginx.conf /etc/nginx/nginx.conf
+COPY ./nginx.conf /etc/nginx/nginx.conf
 
 # Copy html files from '../front-end' to '/usr/share/nginx/html'
-COPY ./front-end /usr/share/nginx/html
-
+# COPY ./front-end /usr/share/nginx/html
 
 
 #mkdir /etc/nginx/certs

@@ -13,14 +13,16 @@ services:
 
 
   nginx:
-    build: 
-      context: ./
-      dockerfile: ./loadBalancer/Dockerfile
+    build: /loadBalancer
     ports:
       - "80:80"
       - "443:443"
     networks:
       - my-network
+    # make sure we can alter the static files while the container is running
+    volumes:
+      - ./front-end:/usr/share/nginx/html
+
     restart: always
 
   psql:
