@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS "users" (
   email VARCHAR(255) NOT NULL UNIQUE,
   profile_picture VARCHAR(255),
   status user_status NOT NULL DEFAULT 'active',
-  sign_in_code int NULL, 
+  sign_in_code NUMERIC(6), 
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
@@ -19,8 +19,7 @@ CREATE TABLE IF NOT EXISTS "token" (
   id SERIAL PRIMARY KEY,
   user_id INT NOT NULL,
   token VARCHAR(255) NOT NULL,
-  ip VARCHAR(255) NOT NULL,
-  expires_at TIMESTAMPTZ NOT NULL,
+  expires_at TIMESTAMPTZ DEFAULT NOW(),
   FOREIGN KEY (user_id) REFERENCES "users"(id) ON DELETE CASCADE
 );
 

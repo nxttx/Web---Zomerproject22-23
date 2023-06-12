@@ -23,6 +23,6 @@ $result = sendMail("Authentication - Zomerproject", "auth.zomerproject@foxels.nl
 if($result === true){
     echo "{\"status\": \"success\"}";
 }else{
-    echo "{\"status\": \"failed\", \"error\": \"" . $result . "\"}";
+    echo "{\"status\": \"error\", \"error\": \"" . $result . "\"}";
 }
 ?>

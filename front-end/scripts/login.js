@@ -6,6 +6,9 @@ document.getElementById("login-form").addEventListener("submit", async (e)=>{
 
     // make fetch request to login
     try {
+      // disable submit button
+      document.getElementById("loginBtn").setAttribute("disabled", true);
+
       let request = await fetch("/api/auth/requestCode?email=" + document.getElementById("loginEmail").value);
       let response = await request.json();
       if(response.status == "success"){
@@ -25,6 +28,9 @@ document.getElementById("login-form").addEventListener("submit", async (e)=>{
       alert("Er is iets fout gegaan. Probeer het later opnieuw. Als het probleem zich blijft voordoen, neem dan contact met ons op.");
     }
 
+    // enable submit button
+    document.getElementById("loginBtn").removeAttribute("disabled");
+
   }else{
     // make fetch request to check code and get token
     try {
@@ -35,7 +41,7 @@ document.getElementById("login-form").addEventListener("submit", async (e)=>{
         },
         body: JSON.stringify({
           email: document.getElementById("loginEmail").value,
-          code: document.getElementById("code").value
+          code: document.getElementById("loginCode").value
         })
       });
       let response = await request.json();
@@ -78,7 +84,14 @@ document.getElementById("signup-form").addEventListener("submit", async (e)=>{
       // reload page
       window.location.reload();
     }else{
-      alert("Er is iets fout gegaan. Probeer het later opnieuw. Als het probleem zich blijft voordoen, neem dan contact met ons op.");
+      let responseJson = await response.json();
+      if(responseJson.message == "Email already exists"){
+        alert("Er bestaat al een account met dit emailadres. Probeer in te loggen of gebruik een ander emailadres.");
+      }else if(responseJson.message == "Username already exists"){
+        alert("Er bestaat al een account met deze gebruikersnaam. Probeer in te loggen of gebruik een andere gebruikersnaam.");
+      }else{
+        alert("Er is iets fout gegaan. Probeer het later opnieuw. Als het probleem zich blijft voordoen, neem dan contact met ons op.");
+      }
     }
   }catch(error){
     alert("Er is iets fout gegaan. Probeer het later opnieuw. Als het probleem zich blijft voordoen, neem dan contact met ons op.");
