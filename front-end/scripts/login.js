@@ -47,7 +47,7 @@ document.getElementById("login-form").addEventListener("submit", async (e)=>{
       let response = await request.json();
       if(response.status == "success"){
         // set token in cookie with expiry date of 1 day
-        document.cookie = "token=" + response.token + "; expires=" + new Date(Date.now() + 86400000).toUTCString() + "; path=/";
+        document.cookie = response.token + "; expires=" + new Date(Date.now() + 86400000).toUTCString() + "; path=/";
         // redirect to home
         window.location.href = "/dashboard";
       }else{

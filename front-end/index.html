@@ -31,27 +31,28 @@
 
     <!-- Main Section -->
     <main class="container mt-3">
-      <h2>Top Tweets</h2>
+      <h2>Tweat</h2>
       <div class="card mb-3">
         <div class="row g-0">
-          <div class="col-md-2 d-flex justify-content-center align-items-center">
-            <img src="/images/profilepicture.jpg" alt="Tweet Author 5" class="img-fluid rounded-circle "
-              style="width: 100px; height: 100px;">
-          </div>
-          <div class="col-md-10">
-            <div class="card-body">
-              <h5 class="card-title">Username 5</h5>
-              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-              <button class="btn btn-primary"><i class="bi bi-arrow-up-circle"></i></button>
-              <button class="btn btn-primary"><i class="bi bi-chat-left-text"></i></button>
+          <form id="tweat-form" class="row g-0">
+            <div class="col-md-10">
+              <div class="card-body">
+                <textarea class="form-control" id="tweatContent" rows="3" placeholder="What's on your mind?"></textarea>
+                <button class="btn btn-primary mt-2">Tweat</button>
+              </div>
             </div>
-          </div>
+          </form>
         </div>
+      </div>
+
+      <h2>Top Tweats</h2>
+      <div class="" id="recentTweats">
+        
       </div>
     </main>
 
     <!-- Footer -->
-    <footer class="p-3 bg-secondary text-white text-center">
+    <footer class="p-3 bg-secondary text-white text-center mt-5">
       <div class="container">
         <p> &copy;
           <script>
@@ -65,6 +66,7 @@
 
     <!-- scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    <script defer src="/scripts/index.js"></script>
   </body>
 
 </html>
