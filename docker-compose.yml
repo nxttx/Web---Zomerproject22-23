@@ -22,8 +22,11 @@ services:
     # make sure we can alter the static files while the container is running
     volumes:
       - ./front-end:/usr/share/nginx/html
-
     restart: always
+    depends_on:
+      psql:
+        condition: service_healthy
+
 
   psql:
     image: postgres:15.3
@@ -41,6 +44,11 @@ services:
     networks:
       - my-network
     restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 5s
+      timeout: 5s
+      retries: 50
 
   nodejs:
     build: /nodeJS

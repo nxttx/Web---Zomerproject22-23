@@ -7,6 +7,7 @@ import bodyParser from "body-parser";
 import test from './routes/test.js';
 import users from './routes/users.js';
 import auth from './routes/auth.js';
+import posts from './routes/posts.js';
 
 const app = express();
 
@@ -21,6 +22,7 @@ app.use(bodyParser.json()); // makes req.body available
 app.use(prefix + '/test',  test);
 app.use(prefix + '/users',  users);
 app.use(prefix + '/auth',  auth);
+app.use(prefix + '/posts',  posts);
 
 
 // helloworld
