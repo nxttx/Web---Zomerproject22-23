@@ -39,7 +39,6 @@ router.get('/requestCode', async function(req, res, next) {
   }
 
   // update user with code
-  console.log(user.rows[0]);
   user = user.rows[0];
   user.sign_in_code = code;
   try{
@@ -79,7 +78,6 @@ router.post('/login', async function(req, res, next) {
   try{
     user = await getUserByEmail(email);
   }catch(err){
-    console.log(err);
     // Email not found
     res.status( 400 ).json({status: "error", message: "Email not found"});
     return;
@@ -87,7 +85,6 @@ router.post('/login', async function(req, res, next) {
 
   // check if code is correct
   user = user.rows[0];
-  console.log(user.sign_in_code, code)
   if(user.sign_in_code != code){
     res.status(403).json({status: "error", message: "Code is incorrect"});
     return;
@@ -108,7 +105,6 @@ router.post('/login', async function(req, res, next) {
   let token;
   do {
     token = "NodeJS" +  Math.floor(Math.random() * 100000000000000000000000);
-    console.log( (await getUserByToken(token)).rows );
   } while ((await getUserByToken(token)).rows.length != 0);
 
   // insert token

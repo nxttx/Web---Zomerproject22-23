@@ -32,7 +32,13 @@ export async function getUserByEmail(email){
 
   try { 
 
-    let query = 'SELECT * FROM users WHERE email = $1';
+    // select everyting of users where email is equal to email and add amount of follows
+    let query = 
+    'SELECT  '+
+    ' users.* '+
+    ' , (SELECT COUNT(*) FROM follows WHERE follows.following_id = users.id) AS amountOfFollowers  '+
+    'FROM users '+
+    'WHERE email = $1';
     let values = [email];
     result = await client.query(query, values);
   }catch (err) {
@@ -74,12 +80,48 @@ export async function getUserByToken(token){
 
   try { 
 
-    let query = 'SELECT * FROM users WHERE id = (SELECT user_id FROM token WHERE token = $1)';
+    // select everyting of users where token is equal to token and add amount of follows
+    let query =
+    'SELECT  '+
+    ' users.* '+
+    ' , (SELECT COUNT(*) FROM follows WHERE follows.following_id = users.id) AS amountOfFollowers  '+
+    'FROM users '+
+    'WHERE id = (SELECT user_id FROM token WHERE token = $1)';
+    
     let values = [token];
 
     result = await client.query(query, values);
   }catch (err) {
     throw err;  
+  }
+  finally {
+    client.end();
+  }
+  return result;
+}
+
+/**
+ * gets user by id. If no user is found, returns false
+ * @param {int} id
+ * @returns {object} user
+ */
+export async function getUserById(id){
+  const client = await getClient();
+  let result;
+  
+  try {
+    // select everyting of users where id is equal to id and add amount of follows
+    let query =
+    'SELECT  '+
+    ' users.* '+
+    ' , (SELECT COUNT(*) FROM follows WHERE follows.following_id = users.id) AS amountOfFollowers  '+
+    'FROM users '+
+    'WHERE id = $1';
+    let values = [id];
+    
+    result = await client.query(query, values);
+  }catch (err) {
+    throw err;
   }
   finally {
     client.end();
@@ -101,6 +143,57 @@ export async function insertToken(user_id, token){
 
     let query = 'INSERT INTO token(user_id, token) VALUES($1, $2)';
     let values = [user_id, token];
+
+    result = await client.query(query, values);
+  }catch (err) {
+    throw err;
+  }
+  finally {
+    client.end();
+  }
+  return result;
+}
+
+/** 
+ * user follows another user
+ * @param {int} user_id
+ * @param {int} following_id
+ * @returns {boolean}
+ */
+export async function followUser(user_id, following_id){
+  const client = await getClient();
+  let result;
+
+  try { 
+
+    let query = 'INSERT INTO follows(user_id, following_id) VALUES($1, $2)';
+    let values = [user_id, following_id];
+
+    result = await client.query(query, values);
+  }catch (err) {
+    throw err;
+  }
+  finally {
+    client.end();
+  }
+  return result;
+}
+
+/**
+ * unfollow user
+ * @param {int} user_id
+ * @param {int} following_id
+ * @returns {boolean}
+ */
+export async function unfollowUser(user_id, following_id){
+  // check if user is already following
+  const client = await getClient();
+  let result;
+
+  try { 
+
+    let query = 'DELETE FROM follows WHERE user_id = $1 AND following_id = $2';
+    let values = [user_id, following_id];
 
     result = await client.query(query, values);
   }catch (err) {

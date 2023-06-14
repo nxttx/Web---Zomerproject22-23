@@ -51,13 +51,14 @@ CREATE TABLE IF NOT EXISTS "likes" (
   UNIQUE (user_id, post_id)
 );
 
-CREATE TABLE IF NOT EXISTS "follow" (
+CREATE TABLE IF NOT EXISTS "follows" (
   id SERIAL PRIMARY KEY,
   user_id INT NOT NULL,
   following_id INT NOT NULL,
   created_at TIMESTAMPTZ DEFAULT NOW(),
   FOREIGN KEY (user_id) REFERENCES "users"(id) ON DELETE CASCADE,
-  FOREIGN KEY (following_id) REFERENCES "users"(id) ON DELETE CASCADE
+  FOREIGN KEY (following_id) REFERENCES "users"(id) ON DELETE CASCADE,
+  UNIQUE (user_id, following_id)
 );
 
 
